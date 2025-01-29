@@ -17,7 +17,7 @@ class PaymeService {
       throw new TransactionError(PMError.ProductNotFound, id, PMData.ProductId);
     }
 
-    if (amount !== process.env.AMOUNT) {
+    if (amount !== Number(process.env.AMOUNT)) {
       console.log('InvalidAmount')
       throw new TransactionError(PMError.InvalidAmount, id);
     }
