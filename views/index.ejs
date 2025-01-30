@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Payme integration</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body onload="Paycom.Button('#form-payme', '#button-container')">
-    <h1>Payme integration</h1>
-    <p>Merchant API <%= version %></p>
+<%- include('../layout/header') %>
+<body>
+  <h1>Payme integration</h1>
+  <p>Merchant API <%= version %></p>
 
-    <form id="form-payme" method="POST" action="https://checkout.paycom.uz/">
-      <input type="hidden" name="merchant" value="<%= process.env.PAYME_MERCHANT_ID %>">
-      <input type="hidden" name="account[storehouse_num]" value="<%= process.env.STOREHOUSE_NUM %>">
-      <input type="hidden" name="amount" value="<%= process.env.AMOUNT %>">
-      <input type="hidden" name="lang" value="ru">
-      <input type="hidden" name="button" data-type="svg" value="colored">
-      <div id="button-container"></div>
-    </form>
-
-    <script src="https://cdn.paycom.uz/integration/js/checkout.min.js"></script>
-  </body>
-</html>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <a href="/storehouse">Storehouses</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/transaction">Transactions</a>
+    </li>
+  </ul>
+</body>
+<%- include('../layout/footer') %>

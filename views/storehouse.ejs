@@ -1,0 +1,30 @@
+<%- include('../layout/header') %>
+<body onload="Paycom.Button('#form-payme', '#button-container')">
+    <h1>Storehouse</h1>
+    <p><b>id:</b> <%= storehouse._id %></p>
+
+    <table class="table">
+        <tr>
+            <th>Num</th>
+            <th>Amount</th>
+        </tr>
+        <tbody>
+        <tr>
+            <td><%- storehouse._id %></td>
+            <td><%- storehouse.amount %></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form id="form-payme" method="POST" action="https://checkout.paycom.uz/">
+        <input type="hidden" name="merchant" value="<%= process.env.PAYME_MERCHANT_ID %>">
+        <input type="hidden" name="account[storehouse_num]" value="<%= storehouse._id %>">
+        <input type="hidden" name="amount" value="<%= storehouse.amount %>">
+        <input type="hidden" name="lang" value="ru">
+        <input type="hidden" name="button" data-type="svg" value="colored" data-width="200px">
+        <div id="button-container"></div>
+    </form>
+
+    <script src="https://cdn.paycom.uz/integration/js/checkout.min.js"></script>
+</body>
+<%- include('../layout/footer') %>

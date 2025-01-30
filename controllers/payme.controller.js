@@ -6,15 +6,11 @@ class PaymeController {
   async pay(req, res, next) {
     try {
       console.log('PaymeController');
-      console.log(req.body);
       const { method, params, id } = req.body;
-      console.log(method);
-      console.log(params);
-      console.log(id);
+      console.log(method, params, id);
 
       switch (method) {
         case PMMethod.CheckPerformTransaction: {
-          console.log('CheckPerformTransaction');
           await paymeService.checkPerformTransaction(params, id);
           return res.json({ result: { allow: true } });
         }

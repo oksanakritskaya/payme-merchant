@@ -10,18 +10,18 @@ class PaymeService {
     console.log('checkPerformTransaction', account, id);
 
     if (!mongoose.Types.ObjectId.isValid(account.storehouse_num)) {
-      throw new TransactionError(PMError.UserNotFound, id, PMData.UserId)
+      throw new TransactionError(PMError.UserNotFound, id, PMData.UserId);
     }
 
     console.log('storehouseModel');
     const storehouse = await storehouseModel.findById(account.storehouse_num)
-    console.log(storehouse)
+    console.log(storehouse);
     if (!storehouse) {
-      console.log('ProductNotFound')
-      throw new TransactionError(PMError.ProductNotFound, id, PMData.ProductId)
+      console.log('ProductNotFound');
+      throw new TransactionError(PMError.ProductNotFound, id, PMData.ProductId);
     }
 
-    if (amount !== storehouse.price) {
+    if (amount !== storehouse.amount) {
       throw new TransactionError(PMError.InvalidAmount, id);
     }
 

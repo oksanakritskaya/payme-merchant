@@ -1,7 +1,7 @@
 const { default: mongoose } = require('mongoose');
 const storehouseModel = require('../models/storehouse.model');
 
-class StorehouseController {
+class StorehouseApiController {
   async get(req, res, next) {
     try {
       console.log('StorehouseController get');
@@ -21,7 +21,7 @@ class StorehouseController {
       console.log('StorehouseController getBuId');
       console.log(req.body);
       const { id } = req.params;
-      const storehouse = await storehouseModel.findById(id);
+      const storehouse = await storehouseModel.findById({_id: id});
       console.log(storehouse);
       res.status(200).json(storehouse);
 
@@ -95,4 +95,4 @@ class StorehouseController {
   }
 }
 
-module.exports = new StorehouseController();
+module.exports = new StorehouseApiController();
