@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var storehouseRouter = require('./routes/storehouse');
 var paymeRouter = require('./routes/payme');
 
 const errorMiddleware = require('./middlewares/error.middleware')
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/storehouse', storehouseRouter);
 app.use('/payme', paymeRouter);
 
 app.use(errorMiddleware)
