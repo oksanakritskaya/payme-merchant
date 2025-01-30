@@ -14,7 +14,8 @@ class PaymeService {
     }
 
     console.log('storehouseModel');
-    const storehouse = await storehouseModel.findById(account.storehouse_num)
+    console.log(account.storehouse_num, typeof account.storehouse_num);
+    const storehouse = await storehouseModel.findById({ _id: account.storehouse_num });
     console.log(storehouse);
     if (!storehouse) {
       console.log('ProductNotFound');

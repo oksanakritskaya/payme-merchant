@@ -21,7 +21,7 @@ class TransactionApiController {
       console.log('TransactionApiController getBuId');
       console.log(req.body);
       const { id } = req.params;
-      const transaction = await transactionModel.findById({_id: id});
+      const transaction = await transactionModel.findById({ _id: id });
       console.log(transaction);
       res.status(200).json(transaction);
 

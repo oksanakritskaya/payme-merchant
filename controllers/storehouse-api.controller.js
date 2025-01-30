@@ -21,7 +21,7 @@ class StorehouseApiController {
       console.log('StorehouseController getBuId');
       console.log(req.body);
       const { id } = req.params;
-      const storehouse = await storehouseModel.findById({_id: id});
+      const storehouse = await storehouseModel.findById({ _id: id });
       console.log(storehouse);
       res.status(200).json(storehouse);
 
