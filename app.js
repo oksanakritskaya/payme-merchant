@@ -11,7 +11,11 @@ var paymeRouter = require('./routes/payme');
 
 const errorMiddleware = require('./middlewares/error.middleware')
 
+const connectDB = require('./connectMongo');
+
 var app = express();
+
+connectDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
