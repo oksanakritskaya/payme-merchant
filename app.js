@@ -32,9 +32,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/', indexRouter);
 app.use('/api/transactions', transactionApiRouter);
-app.use('/payme', paymeRouter);
-
-app.use(errorMiddleware);
+app.use('/payme', errorMiddleware, paymeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,6 +42,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log('EEEROR HANDLER');
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
