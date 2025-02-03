@@ -3,13 +3,26 @@
   <h1>Payme integration</h1>
   <p>Merchant API <%= version %></p>
 
-  <ul class="list-group">
-    <li class="list-group-item">
-      <a href="/storehouse">Storehouses</a>
-    </li>
-    <li class="list-group-item">
-      <a href="/transaction">Transactions</a>
-    </li>
-  </ul>
+  <h2>Transactions</h2>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Num</th>
+      <th>Amount</th>
+      <th>State</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% transactions.forEach(function(transaction) { %>
+      <tr>
+        <td>
+          <a href="/<%= transaction._id %>"><%- transaction._id %></a>
+        </td>
+        <td><%- transaction.state %></td>
+        <td><%- transaction.amount %></td>
+      </tr>
+    <% }); %>
+    </tbody>
+  </table>
 </body>
 <%- include('../layout/footer') %>

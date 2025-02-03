@@ -7,12 +7,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const storehouseApiRouter = require('./routes/storehouse-api');
 const transactionApiRouter = require('./routes/transaction-api');
 const paymeRouter = require('./routes/payme');
-
-const storehouseRouter = require('./routes/storehouse');
-const transactionRouter = require('./routes/transaction');
 
 const errorMiddleware = require('./middlewares/error.middleware')
 
@@ -34,13 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
-app.use('/api/storehouse', storehouseApiRouter);
-app.use('/api/transactions', transactionApiRouter);
-
 app.use('/', indexRouter);
-app.use('/storehouse', storehouseRouter);
-app.use('/transaction', transactionRouter);
-
+app.use('/api/transactions', transactionApiRouter);
 app.use('/payme', paymeRouter);
 
 app.use(errorMiddleware);

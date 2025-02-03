@@ -3,9 +3,9 @@ const { Schema, model } = require('mongoose')
 const transactionSchema = new Schema(
   {
     id: { type: String },
-    storehouse: { type: Schema.Types.ObjectId, ref: 'Storehouse' },
-    state: { type: Number },
+    storehouse_num: { type: String },
     amount: { type: Number },
+    state: { type: Number },
     create_time: { type: Number, default: Date.now() },
     perform_time: { type: Number, default: 0 },
     cancel_time: { type: Number, default: 0 },

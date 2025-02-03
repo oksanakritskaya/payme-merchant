@@ -3,7 +3,7 @@ const transactionModel = require('../models/transaction.model');
 
 class TransactionApiController {
   async get(req, res, next) {
-    try {
+    /*try {
       console.log('TransactionApiController get');
       const transactions = await transactionModel.find({});
       res.status(200).json(transactions);
@@ -13,15 +13,15 @@ class TransactionApiController {
       console.error(error);
       //next(error);
       res.status(500).json({ message: error.message });
-    }
+    }*/
   }
 
   async getBuId(req, res, next) {
-    try {
+    /*try {
       console.log('TransactionApiController getBuId');
       console.log(req.body);
       const { id } = req.params;
-      const transaction = await transactionModel.findById({ _id: id });
+      const transaction = await transactionModel.findOne({ id });
       console.log(transaction);
       res.status(200).json(transaction);
 
@@ -30,11 +30,11 @@ class TransactionApiController {
       console.error(error);
       //next(error);
       res.status(500).json({message: error.message});
-    }
+    }*/
   }
 
   async post(req, res, next) {
-    try {
+    /*try {
       console.log('TransactionApiController post');
       console.log(req.body);
       const transaction = await transactionModel.create(req.body);
@@ -46,11 +46,11 @@ class TransactionApiController {
       console.error(error);
       //next(error);
       res.status(500).json({message: error.message});
-    }
+    }*/
   }
 
   async put(req, res, next) {
-    try {
+    /*try {
       console.log('TransactionApiController put');
       console.log(req.body);
       const { id } = req.params;
@@ -60,7 +60,7 @@ class TransactionApiController {
         return res.status(404).json({ message: 'Not Found' });
       }
 
-      const updatedTransaction = await transactionModel.findById(id);
+      const updatedTransaction = await transactionModel.findOne({ id });
       console.log(updatedTransaction);
       res.status(200).json(updatedTransaction);
 
@@ -69,11 +69,11 @@ class TransactionApiController {
       console.error(error);
       //next(error);
       res.status(500).json({message: error.message});
-    }
+    }*/
   }
 
   async delete(req, res, next) {
-    try {
+    /*try {
       console.log('TransactionApiController delete bu id');
       console.log(req.body);
       const { id } = req.params;
@@ -91,7 +91,7 @@ class TransactionApiController {
       console.error(error);
       //next(error);
       res.status(500).json({message: error.message});
-    }
+    }*/
   }
 }
 
