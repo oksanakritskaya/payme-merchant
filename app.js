@@ -32,7 +32,10 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/', indexRouter);
 app.use('/api/transactions', transactionApiRouter);
-app.use('/payme', errorMiddleware, paymeRouter);
+//app.use('/payme', errorMiddleware, paymeRouter);
+app.use('/payme', paymeRouter);
+
+app.use(errorMiddleware);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
