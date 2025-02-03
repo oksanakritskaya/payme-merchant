@@ -16,7 +16,7 @@
     <% transactions.forEach(function(transaction) { %>
       <tr>
         <td>
-          <a href="/<%= transaction._id %>"><%- transaction._id %></a>
+          <a href="/<%= transaction.id %>"><%- transaction.id %></a>
         </td>
         <td><%- transaction.state %></td>
         <td><%- transaction.amount %></td>

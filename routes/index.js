@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   const transaction = await transactionModel.findOne({ id });
-  res.render('transaction', { version: pjson.version, transaction });
+  res.render('transaction', { transaction });
 });
 
 module.exports = router;
