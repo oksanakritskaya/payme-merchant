@@ -111,7 +111,7 @@ class TransactionService {
         state: TransactionState.Paid,
       };
     }
-    const expirationTime = (currentTime - transaction.create_time) / 60000 < 12;
+    /*const expirationTime = (currentTime - transaction.create_time) / 60000 < 12;
     console.log(expirationTime);
     if (!expirationTime) {
       console.log('no expirationTime');
@@ -120,7 +120,7 @@ class TransactionService {
         { state: TransactionState.PendingCanceled, reason: TransactionCancelReason.transactionExpired, cancel_time: currentTime }
       )
       throw new TransactionError(PaymeError.CantDoOperation, id)
-    }
+    }*/
 
     await transactionModel.findOneAndUpdate({ id: params.id }, { state: TransactionState.Paid, perform_time: currentTime })
     // await orderModel.findOneAndUpdate({ transaction: params.id }, { state: OrderState.Paid })
