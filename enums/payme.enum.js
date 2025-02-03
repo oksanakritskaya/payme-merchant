@@ -93,3 +93,12 @@ exports.TransactionState = {
   PendingCanceled: -1,
   PaidCanceled: -2,
 }
+
+exports.TransactionCancelReason = {
+  receiverNotFound: 1,
+  debitTransactionError: 2,
+  transactionError: 3,
+  transactionExpired: 4,
+  refund: 5,
+  unknownError: 10,
+}

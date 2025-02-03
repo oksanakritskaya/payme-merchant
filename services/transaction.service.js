@@ -1,6 +1,6 @@
 const { default: mongoose } = require('mongoose');
 const TransactionError = require('../errors/transaction.error');
-const { PaymeData, PaymeError, TransactionState} = require('../enums/payme.enum');
+const { PaymeData, PaymeError, TransactionState, TransactionCancelReason} = require('../enums/payme.enum');
 const transactionModel = require('../models/transaction.model');
 
 class TransactionService {
@@ -87,6 +87,51 @@ class TransactionService {
       state: TransactionState.Pending,
       create_time: newTransaction.create_time,
     };
+  }
+
+  async performTransaction(params, id) {
+    console.log('performTransaction');
+    const currentTime = Date.now();
+
+    const transaction = await transactionModel.findOne({ id: params.id });
+    console.log(transaction);
+    if (!transaction) {
+      console.log('not exists');
+      throw new TransactionError(PaymeError.TransactionNotFound, id);
+    }
+    console.log('exists');
+    if (transaction.state !== TransactionState.Pending) {
+      if (transaction.state !== TransactionState.Paid) {
+        throw new TransactionError(PaymeError.CantDoOperation, id);
+      }
+
+      return {
+        perform_time: transaction.perform_time,
+        transaction: transaction.id,
+        state: TransactionState.Paid,
+      };
+    }
+    const expirationTime = (currentTime - transaction.create_time) / 60000 < 12;
+    console.log(expirationTime);
+    if (!expirationTime) {
+      console.log('no expirationTime');
+      await transactionModel.findOneAndUpdate(
+        { id: params.id },
+        { state: TransactionState.PendingCanceled, reason: TransactionCancelReason.transactionExpired, cancel_time: currentTime }
+      )
+      throw new TransactionError(PaymeError.CantDoOperation, id)
+    }
+
+    await transactionModel.findOneAndUpdate({ id: params.id }, { state: TransactionState.Paid, perform_time: currentTime })
+    // await orderModel.findOneAndUpdate({ transaction: params.id }, { state: OrderState.Paid })
+    // await userModel.findOneAndUpdate({ id: transaction.user }, { $inc: { balance: transaction.amount } })
+    // await userModel.findOneAndUpdate({ id: transaction.user }, { vip: true })
+
+    return {
+      perform_time: currentTime,
+      transaction: transaction.id,
+      state: TransactionState.Paid,
+    }
   }
 }
 

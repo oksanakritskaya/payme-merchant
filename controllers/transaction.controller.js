@@ -25,6 +25,11 @@ class TransactionController {
           const result = await transactionService.createTransaction(params, id)
           return res.json({ result, id })
         }
+        case PaymeMethod.PerformTransaction: {
+          console.log('PerformTransaction');
+          const result = await transactionService.performTransaction(params, id)
+          return res.json({ result, id })
+        }
       }
     } catch (error) {
       console.log('error');
