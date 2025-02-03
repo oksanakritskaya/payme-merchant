@@ -1,6 +1,6 @@
 
 const paymeService = require('../services/payme.service')
-const { PMMethod } = require("../enums/payme.enum");
+const { PaymeMethod } = require("../enums/payme.enum");
 
 class PaymeController {
   async pay(req, res, next) {
@@ -10,7 +10,7 @@ class PaymeController {
       console.log(method, params, id);
 
       switch (method) {
-        case PMMethod.CheckPerformTransaction: {
+        case PaymeMethod.CheckPerformTransaction: {
           console.log('CheckPerformTransaction');
           await paymeService.checkPerformTransaction(params, id);
           return res.json({ result: { allow: true } });

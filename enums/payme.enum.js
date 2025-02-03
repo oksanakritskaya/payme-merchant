@@ -1,4 +1,4 @@
-exports.PMMethod = {
+exports.PaymeMethod = {
   CheckPerformTransaction: 'CheckPerformTransaction',
   CheckTransaction: 'CheckTransaction',
   CreateTransaction: 'CreateTransaction',
@@ -7,7 +7,7 @@ exports.PMMethod = {
   GetStatement: 'GetStatement',
 }
 
-exports.PMError = {
+exports.PaymeError = {
   InvalidAmount: {
     name: 'InvalidAmount',
     code: -31001,
@@ -82,12 +82,12 @@ exports.PMError = {
   },
 }
 
-exports.PMData = {
+exports.PaymeData = {
   UserId: 'user_id',
   ProductId: 'product_id',
 }
 
-exports.PMState = {
+exports.TransactionState = {
   Paid: 2,
   Pending: 1,
   PendingCanceled: -1,

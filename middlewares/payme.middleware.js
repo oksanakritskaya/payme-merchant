@@ -1,7 +1,7 @@
 const base64 = require('base-64')
 
 const TransactionError = require('../errors/transaction.error')
-const { PMError } = require('../enums/payme.enum')
+const { PaymeError } = require('../enums/payme.enum')
 
 const PAYME_MERCHANT_KEY = process.env.PAYME_MERCHANT_KEY
 
@@ -16,7 +16,7 @@ exports.paymeCheckToken = (req, res, next) => {
     console.log(token);
     if (!token) {
       console.log('!token');
-      throw new TransactionError(PMError.InvalidAuthorization, id);
+      throw new TransactionError(PaymeError.InvalidAuthorization, id);
     }
 
     const data = base64.decode(token);
@@ -24,7 +24,7 @@ exports.paymeCheckToken = (req, res, next) => {
 
     if (!data.includes(PAYME_MERCHANT_KEY)) {
       console.log('!!data.includes(PAYME_MERCHANT_KEY)');
-      throw new TransactionError(PMError.InvalidAuthorization, id);
+      throw new TransactionError(PaymeError.InvalidAuthorization, id);
     }
 
     next();

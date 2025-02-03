@@ -1,6 +1,6 @@
 const { default: mongoose } = require('mongoose');
 const TransactionError = require('../errors/transaction.error');
-const { PMData, PMError, PMState} = require('../enums/payme.enum');
+const { PaymeData, PaymeError, TransactionState} = require('../enums/payme.enum');
 const transactionModel = require('../models/transaction.model');
 
 class PaymeService {
@@ -8,11 +8,11 @@ class PaymeService {
     let { account, amount } = params;
 
     if (account.storehouse_num !== process.env.STOREHOUSE_NUM) {
-      throw new TransactionError(PMError.ProductNotFound, id, PMData.ProductId);
+      throw new TransactionError(PaymeError.ProductNotFound, id, PaymeData.ProductId);
     }
 
     if (amount !== Number(process.env.AMOUNT)) {
-      throw new TransactionError(PMError.InvalidAmount, id);
+      throw new TransactionError(PaymeError.InvalidAmount, id);
     }
   }
 
@@ -53,7 +53,7 @@ class PaymeService {
     console.log('create new');
     const newTransaction = await transactionModel.create({
       id: params.id,
-      state: PMState.Pending,
+      state: TransactionState.Pending,
       amount,
       storehouse_num: account.storehouse_num,
       create_time: time,
@@ -63,7 +63,7 @@ class PaymeService {
 
     return {
       transaction: newTransaction.id,
-      state: PMState.Pending,
+      state: TransactionState.Pending,
       create_time: newTransaction.create_time,
     };
   }
