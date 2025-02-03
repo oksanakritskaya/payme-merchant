@@ -14,6 +14,8 @@ class TransactionService {
     if (amount !== Number(process.env.AMOUNT)) {
       throw new TransactionError(PaymeError.InvalidAmount, id);
     }
+
+    console.log('success');
   }
 
   async checkTransaction(params, id) {
@@ -24,7 +26,7 @@ class TransactionService {
       console.log('not exists');
       throw new TransactionError(PaymeError.TransactionNotFound, id);
     }
-    console.log('exists');
+    console.log('success');
     return {
       create_time: transaction.create_time,
       perform_time: transaction.perform_time,
@@ -47,19 +49,25 @@ class TransactionService {
     if (transaction) {
       console.log('exists');
       if (transaction.state !== TransactionState.Pending) {
-        throw new TransactionError(PaymeError.CantDoOperation, id)
+        throw new TransactionError(PaymeError.CantDoOperation, id);
       }
-      const currentTime = Date.now()
-      const expirationTime = (currentTime - transaction.create_time) / 60000 < 12
+      const currentTime = Date.now();
+      const expirationTime = (currentTime - transaction.create_time) / 60000 < 12;
+      console.log(expirationTime);
       if (!expirationTime) {
-        await transactionModel.findOneAndUpdate({ id: params.id }, { state: TransactionState.PendingCanceled, reason: 4 })
-        throw new TransactionError(PaymeError.CantDoOperation, id)
+        console.log('no expirationTime');
+        await transactionModel.findOneAndUpdate(
+          { id: params.id },
+          { state: TransactionState.PendingCanceled, reason: TransactionCancelReason.transactionExpired }
+        );
+        throw new TransactionError(PaymeError.CantDoOperation, id);
       }
+      console.log('success');
       return {
         create_time: transaction.create_time,
         transaction: transaction.id,
         state: TransactionState.Pending,
-      }
+      };
     }
 
     console.log('not exists');

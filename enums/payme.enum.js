@@ -94,6 +94,13 @@ exports.TransactionState = {
   PaidCanceled: -2,
 }
 
+exports.TransactionStateName = {
+  2: 'Paid',
+  1: 'Pending',
+  [-1]: 'Pending Canceled',
+  [-2]: 'Paid Canceled',
+}
+
 exports.TransactionCancelReason = {
   receiverNotFound: 1,
   debitTransactionError: 2,

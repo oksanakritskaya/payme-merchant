@@ -10,6 +10,7 @@
       <th>Num</th>
       <th>Amount</th>
       <th>State</th>
+      <th>Perform time</th>
     </tr>
     </thead>
     <tbody>
@@ -18,8 +19,9 @@
         <td>
           <a href="/transaction/<%= transaction.id %>"><%- transaction.id %></a>
         </td>
-        <td><%- transaction.state %></td>
         <td><%- transaction.amount %></td>
+        <td><%- transaction.state %> <span class="badge bg-secondary"><%- TransactionStateName[transaction.state] %></span></td>
+        <td><%- transaction.perform_time %></td>
       </tr>
     <% }); %>
     </tbody>
