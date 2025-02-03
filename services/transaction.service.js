@@ -169,6 +169,29 @@ class TransactionService {
       state: -Math.abs(transaction.state),
     };
   }
+
+  async getStatement(params) {
+    console.log('getStatement');
+    const { from, to } = params;
+    console.log(from, to);
+    const transactions = await transactionModel.find({ create_time: { $gte: from, $lte: to }, provider: 'payme' })
+    console.log(transactions);
+
+    return transactions.map(transaction => ({
+      id: transaction.id,
+      time: transaction.create_time,
+      amount: transaction.amount,
+      account: {
+        storehouse_num: transaction.storehouse_num,
+      },
+      create_time: transaction.create_time,
+      perform_time: transaction.perform_time,
+      cancel_time: transaction.cancel_time,
+      transaction: transaction.id,
+      state: transaction.state,
+      reason: transaction.reason,
+    }))
+  }
 }
 
 module.exports = new TransactionService();
