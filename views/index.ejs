@@ -11,6 +11,7 @@
       <th>Amount</th>
       <th>State</th>
       <th>Perform time</th>
+      <th>Reason</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
         <td><%- transaction.amount %></td>
         <td><%- transaction.state %> <span class="badge bg-secondary"><%- TransactionStateName[transaction.state] %></span></td>
         <td><%- transaction.perform_time %></td>
+        <td><%- transaction.reason %> <span class="badge bg-danger"><%- TransactionCancelReasonName[transaction.reason] %></span></td>
       </tr>
     <% }); %>
     </tbody>

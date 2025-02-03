@@ -109,3 +109,12 @@ exports.TransactionCancelReason = {
   refund: 5,
   unknownError: 10,
 }
+
+exports.TransactionCancelReasonName = {
+  1: 'receiver Not Found',
+  2: 'debit Transaction Error',
+  3: 'transaction Error',
+  4: 'transaction Expired',
+  5: 'refund',
+  10: 'unknown Error',
+}

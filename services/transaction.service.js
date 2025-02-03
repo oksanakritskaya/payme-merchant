@@ -141,6 +141,34 @@ class TransactionService {
       state: TransactionState.Paid,
     }
   }
+
+  async cancelTransaction(params, id) {
+    console.log('cancelTransaction');
+    const transaction = await transactionModel.findOne({ id: params.id });
+    console.log(transaction);
+
+    if (!transaction) {
+      console.log('not exists');
+      throw new TransactionError(PaymeError.TransactionNotFound, id);
+    }
+
+    const currentTime = Date.now();
+
+    if (transaction.state > 0) {
+      console.log('transaction.state > 0');
+      await transactionModel.findOneAndUpdate(
+        { id: params.id },
+        { state: -Math.abs(transaction.state), reason: params.reason, cancel_time: currentTime }
+      );
+    }
+
+    console.log('success');
+    return {
+      cancel_time: transaction.cancel_time || currentTime,
+      transaction: transaction.id,
+      state: -Math.abs(transaction.state),
+    };
+  }
 }
 
 module.exports = new TransactionService();
