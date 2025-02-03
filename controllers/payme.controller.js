@@ -11,8 +11,14 @@ class PaymeController {
 
       switch (method) {
         case PMMethod.CheckPerformTransaction: {
+          console.log('CheckPerformTransaction');
           await paymeService.checkPerformTransaction(params, id);
           return res.json({ result: { allow: true } });
+        }
+        case PaymeMethod.CreateTransaction: {
+          console.log('CreateTransaction');
+          const result = await paymeService.createTransaction(params, id)
+          return res.json({ result, id })
         }
       }
     } catch (error) {
