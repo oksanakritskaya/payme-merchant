@@ -3,7 +3,7 @@ const TransactionError = require('../errors/transaction.error');
 const { PaymeData, PaymeError, TransactionState} = require('../enums/payme.enum');
 const transactionModel = require('../models/transaction.model');
 
-class PaymeService {
+class TransactionService {
   async checkPerformTransaction(params, id) {
     let { account, amount } = params;
 
@@ -14,6 +14,25 @@ class PaymeService {
     if (amount !== Number(process.env.AMOUNT)) {
       throw new TransactionError(PaymeError.InvalidAmount, id);
     }
+  }
+
+  async checkTransaction(params, id) {
+    console.log('checkTransaction');
+    const transaction = await transactionModel.findOne({ id: params.id });
+    console.log(transaction);
+    if (!transaction) {
+      console.log('not exists');
+      throw new TransactionError(PaymeError.TransactionNotFound, id);
+    }
+    console.log('exists');
+    return {
+      create_time: transaction.create_time,
+      perform_time: transaction.perform_time,
+      cancel_time: transaction.cancel_time,
+      transaction: transaction.id,
+      state: transaction.state,
+      reason: transaction.reason,
+    };
   }
 
   async createTransaction(params, id) {
@@ -71,4 +90,4 @@ class PaymeService {
   }
 }
 
-module.exports = new PaymeService();
+module.exports = new TransactionService();
