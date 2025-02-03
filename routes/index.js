@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
   res.render('index', { version: pjson.version, transactions });
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/transaction/:id', async (req, res, next) => {
   console.log('tut');
   const { id } = req.params;
   console.log(id);
