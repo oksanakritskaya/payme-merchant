@@ -9,6 +9,7 @@
     <tr>
       <th>Num</th>
       <th>Amount</th>
+      <th>Create time</th>
       <th>State</th>
       <th>Perform time</th>
       <th>Reason</th>
@@ -21,6 +22,7 @@
           <a href="/transaction/<%= transaction.id %>"><%- transaction.id %></a>
         </td>
         <td><%- transaction.amount %></td>
+        <td><%- transaction.create_time %></td>
         <td><%- transaction.state %> <span class="badge bg-secondary"><%- TransactionStateName[transaction.state] %></span></td>
         <td><%- transaction.perform_time %></td>
         <td><%- transaction.reason %> <span class="badge bg-danger"><%- TransactionCancelReasonName[transaction.reason] %></span></td>

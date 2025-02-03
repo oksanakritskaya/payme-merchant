@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const transactionApiRouter = require('./routes/transaction-api');
 const paymeRouter = require('./routes/payme');
 
 const errorMiddleware = require('./middlewares/error.middleware')
@@ -31,8 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/', indexRouter);
-app.use('/api/transactions', transactionApiRouter);
-//app.use('/payme', errorMiddleware, paymeRouter);
 app.use('/payme', paymeRouter);
 
 app.use(errorMiddleware);
@@ -45,8 +42,6 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  console.log('EEEROR HANDLER');
-  console.log(err.message);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
