@@ -23,7 +23,7 @@ class PaymeService {
 
     await this.checkPerformTransaction(params, id);
 
-    /*let transaction = await transactionModel.findOne({ id: params.id })
+    let transaction = await transactionModel.findOne({ id: params.id })
     console.log(transaction);
     if (transaction) {
       console.log('exists');
@@ -44,11 +44,13 @@ class PaymeService {
     }
 
     console.log('not exists');
-    transaction = await transactionModel.findOne({ user: account.user_id, product: account.product_id, provider: 'payme' })
+    transaction = await transactionModel.findOne({ storehouse_num: account.storehouse_num, provider: 'payme' })
+    console.log(transaction);
     if (transaction) {
+      console.log('exists');
       if (transaction.state === TransactionState.Paid) throw new TransactionError(PaymeError.AlreadyDone, id)
       if (transaction.state === TransactionState.Pending) throw new TransactionError(PaymeError.Pending, id)
-    }*/
+    }
 
     console.log('create new');
     const newTransaction = await transactionModel.create({
